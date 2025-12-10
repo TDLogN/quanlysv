@@ -1,0 +1,36 @@
+﻿@model QuanLySinhVien.Models.Account
+
+@{
+    ViewData["Title"] = "Xóa Vai trò";
+}
+
+<h1 class="text-danger">❌ Xác nhận Xóa Vai trò</h1>
+<hr />
+
+<div class="card border-danger mb-4 shadow-sm">
+
+    <div class="card-header bg-danger text-white">
+        <h5 class="mb-0">CẢNH BÁO: Xóa vai trò có thể ảnh hưởng đến người dùng!</h5>
+    </div>
+
+    <div class="card-body">
+        <h4 class="card-title text-danger mb-4">Bạn có chắc chắn muốn xóa vai trò này?</h4>
+
+        <div class="p-3 mb-4 border rounded bg-light">
+            <h5 class="text-primary mb-3">Thông tin chi tiết Vai trò</h5>
+
+            <partial name="_AccountDetails" model="Model" />
+
+        </div>
+
+        <form asp-action="Delete">
+            <input type="hidden" asp-for="AccountID" />
+
+            <input type="submit" value="✅ Xác nhận Xóa Vĩnh Viễn" class="btn btn-danger btn-lg me-3" />
+
+            <a asp-action="Index" class="btn btn-secondary btn-lg">
+                <i class="fas fa-arrow-left"></i> Hủy Bỏ
+            </a>
+        </form>
+    </div>
+</div>

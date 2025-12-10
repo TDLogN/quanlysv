@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using QuanLySinhVien.Data;
+using QuanLySinhVien.Filters;
 using QuanLySinhVien.Models;
 using quanlysv;
 using RestSharp;
@@ -9,6 +10,7 @@ using System.Text.Json;
 
 namespace QuanLySinhVien.Controllers
 {
+    [CustomActionFilter(FunctionCode = "CLASS_VIEW", CheckAuthentication = true)]
 
     public class ClassController : Controller
     {
@@ -32,6 +34,7 @@ namespace QuanLySinhVien.Controllers
                     .ToList(),
                 "TeacherID", "FullName");
         }
+        [CustomActionFilter(FunctionCode = "CLASS_VIEW", CheckAuthentication = true)]
 
         public async Task<IActionResult> Index(string keyword, int? page)
         {
@@ -71,7 +74,7 @@ namespace QuanLySinhVien.Controllers
 
             return View(pagedData);
         }
-        [Authorize(Roles = "Admin")]
+        [CustomActionFilter(FunctionCode = "CLASS_EDIT")]
         [HttpGet]
         public IActionResult AddClass()
         {
@@ -141,7 +144,8 @@ namespace QuanLySinhVien.Controllers
         }
 
         // DELETE CLASS
-        [Authorize(Roles = "Admin")]
+        [CustomActionFilter(FunctionCode = "CLASS_DELETE")]
+
 
         [HttpGet]
         public async Task<IActionResult> DeleteClass(int id)

@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using QuanLySinhVien.Data;
 using QuanLySinhVien.Models;
+
 namespace QuanLySinhVien.API.Controllers.API
 {
     [Route("api/[controller]")]
@@ -24,7 +25,7 @@ namespace QuanLySinhVien.API.Controllers.API
             return Ok(grades);
         }
         // post api/grade them diem moi
-        [HttpPost("Add")]
+        [HttpPost("Create")]
         public async Task<IActionResult> AddGrade([FromBody] Grade grade)
         {
             if (!ModelState.IsValid)
@@ -46,32 +47,34 @@ namespace QuanLySinhVien.API.Controllers.API
                 return StatusCode(500, new
                 {
                     error = "Đã xảy ra lỗi khi thêm điểm.",
-                    details = ex.Message
+                    details = ex.Message    
                 });
             }
         }
         [HttpPut]
-        [Route("Edit/{id}")]
-        public async Task<IActionResult> EditGrade(int id, [FromBody] Grade grade)
+        [Route("{id}")]
+        public async Task<IActionResult> EditGrade(int id, [FromBody] Grade model)
         {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
+            if (id != model.GradeID)
+                return BadRequest("ma diem khong dung");
             try
             {
-                await _context.Database.ExecuteSqlRawAsync(
-                    "CALL UpdateGrade({0}, {1}, {2}, {3}, {4}, {5})",
-                    id,
-                    grade.EnrollmentID,
-                    grade.MidtermScore,
-                    grade.FinalScore,
-                    grade.AverageScore,
-                    grade.GradeLetter
+               int affectedRows = await _context.Database.ExecuteSqlRawAsync(
+                    "CALL UpdateGrade({0}, {1}, {2}, {3}, {4})",
+                    model.EnrollmentID,
+                    model.MidtermScore,
+                    model.FinalScore,
+                    model.AverageScore,
+                    model.GradeLetter
                 );
-                return Ok(new { message = " Cập nhật điểm thành công" });
+                if (affectedRows > 0)
+                    return Ok(new { message = "Cập nhật điểm số thành công" });
+
+                return StatusCode(500, new { message = "Không có dòng nào bị ảnh hưởng." });
             }
             catch (Exception ex)
             {
-                return StatusCode(500, new { error = "Đã xảy ra lỗi khi cập nhật điểm.", details = ex.Message });
+                return StatusCode(500, new { message = "Lỗi khi cập nhật điểm số.", detail = ex.Message });
             }
         }
         [HttpDelete]

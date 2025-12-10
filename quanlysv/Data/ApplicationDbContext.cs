@@ -76,6 +76,7 @@ namespace QuanLySinhVien.Data
                 entity.Property(e => e.Position).HasMaxLength(50);
             });
 
+
             // ... (Đã sửa ToTable cho các bảng còn lại thành chữ thường, ví dụ "subjects", "semesters", etc.) ...
             modelBuilder.Entity<Subject>(entity => { entity.ToTable("subjects"); entity.HasKey(e => e.SubjectID); /*...*/ });
             modelBuilder.Entity<Semester>(entity => { entity.ToTable("semesters"); entity.HasKey(e => e.SemesterID); /*...*/ });

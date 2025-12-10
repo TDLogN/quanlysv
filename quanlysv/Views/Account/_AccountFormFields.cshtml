@@ -1,0 +1,16 @@
+﻿@model QuanLySinhVien.Models.Account
+<div class="row">
+    <div class="col-md-12">
+        
+        <div class="form-group mb-3">
+            <label asp-for="Username" class="control-label">Tên tài khoản</label>
+            <textarea asp-for="Username" class="form-control" rows="3"></textarea>
+            <span asp-validation-for="Username" class="text-danger"></span>
+        </div>
+        <div class="form-group mb-3">
+            <label asp-for="PasswordHash" class="control-label">Mật khẩu </label>
+            <input asp-for="PasswordHash" class="form-control" />
+            <span asp-validation-for="AccountID" class="text-danger"></span>
+        </div>
+    </div>
+</div>

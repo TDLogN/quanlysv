@@ -1,0 +1,42 @@
+﻿@using QuanLySinhVien.Models
+@{
+    // Dùng ?? new Account() hoặc kiểm tra Null để tránh lỗi
+    var account = ViewBag.Account as Account;
+    var roles = ViewBag.Roles as List<Role> ?? new List<Role>();
+}
+
+@if (account == null)
+{
+    // Hiển thị thông báo hoặc quay lại nếu Account bị null
+    <div class="alert alert-danger">Không tìm thấy thông tin Tài khoản. Vui lòng quay lại.</div>
+    <a asp-action="Index" class="btn btn-secondary">Quay lại</a>
+    return;
+}
+
+<div class="card shadow-lg mt-4">
+    <div class="card-header bg-primary text-white">
+        <h3>Phân quyền cho tài khoản: <b>@account.Username</b></h3>
+    </div>
+
+    <div class="card-body">
+        <form method="post" asp-action="UpdateRole" asp-route-id="@account.AccountID">
+            <input type="hidden" name="accountId" value="@account.AccountID" />
+
+            <div class="mb-3">
+                <label class="form-label">Chọn vai trò:</label>
+                <select name="roleId" class="form-select">
+                    @foreach (var r in roles)
+                    {
+                        <option value="@r.RoleID" selected="@(account.RoleID == r.RoleID)">
+                            @r.RoleName
+                        </option>
+                    }
+                </select>
+            </div>
+
+            <button type="submit" class="btn btn-success">Lưu thay đổi</button>
+            <a asp-action="Index" class="btn btn-secondary">Quay lại</a>
+        </form>
+    </div>
+</div>
+<partial name="../Shared/_PageList" /> 

@@ -18,6 +18,7 @@ namespace QuanLySinhVien.Helpers
                     GA_Confirmed = true, 
                     List_User_Functions = new List<string>
                     {
+                        "Account_VIEW", "ACCOUNT_CREATE", "ACCOUNT_EDIT", "ACCOUNT_DELETE",
                         "STUDENT_VIEW", "STUDENT_CREATE", "STUDENT_EDIT", "STUDENT_DELETE",
                         "SUBJECT_VIEW", "SUBJECT_CREATE", "SUBJECT_EDIT", "SUBJECT_DELETE",
                         "CLASS_VIEW","CLASS_CREATE", "CLASS_EDIT", "CLASS_DELETE","CLASS_DETAIL",
@@ -28,12 +29,12 @@ namespace QuanLySinhVien.Helpers
                     }
                 };
             }
-            else if (username.ToLower() == "teacher")
+            else if (username.ToLower() == "Giảng viên")
             {
                 return new UserInfo
                 {
                     UserName = username,
-                    Role = "Teacher",
+                    Role = "Giảng viên",
                     GA_Confirmed = true,
                     List_User_Functions = new List<string>
                     {

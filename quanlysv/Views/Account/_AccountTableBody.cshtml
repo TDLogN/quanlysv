@@ -1,0 +1,23 @@
+﻿@model IEnumerable<QuanLySinhVien.Models.Account>
+
+@if (Model != null)
+{
+    @foreach (var item in Model)
+    {
+        <tr>
+            @* <td>@Html.DisplayFor(modelItem => item.AccountID)</td> *@
+            <td>@Html.DisplayFor(modelItem => item.Username)</td>
+            <td>
+                @* <a asp-action="Edit" asp-route-id="@item.AccountID" class="btn btn-sm btn-warning me-1">Sửa</a> *@
+                <a asp-action="Delete" asp-route-id="@item.AccountID" class="btn btn-sm btn-danger">Xóa</a>
+                <a asp-action="Permission" asp-route-id="@item.AccountID" class="btn btn-sm btn-info"> Phân quyền</a>
+            </td>
+        </tr>
+    }
+}
+else
+{
+    <tr>
+        <td colspan="3" class="text-center text-danger">Không tìm thấy dữ liệu tài khoản.</td>
+    </tr>
+}

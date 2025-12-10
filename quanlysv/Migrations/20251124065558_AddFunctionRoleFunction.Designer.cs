@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using QuanLySinhVien.Data;
 
@@ -11,9 +12,11 @@ using QuanLySinhVien.Data;
 namespace quanlysv.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251124065558_AddFunctionRoleFunction")]
+    partial class AddFunctionRoleFunction
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -221,6 +224,31 @@ namespace quanlysv.Migrations
                     b.ToTable("roles", (string)null);
                 });
 
+            modelBuilder.Entity("QuanLySinhVien.Models.RoleFunction", b =>
+                {
+                    b.Property<int>("RoleID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("FunctionCode")
+                        .HasColumnType("varchar(50)");
+
+                    b.Property<string>("FunctionCode1")
+                        .HasColumnType("varchar(50)");
+
+                    b.Property<int?>("RoleID1")
+                        .HasColumnType("int");
+
+                    b.HasKey("RoleID", "FunctionCode");
+
+                    b.HasIndex("FunctionCode");
+
+                    b.HasIndex("FunctionCode1");
+
+                    b.HasIndex("RoleID1");
+
+                    b.ToTable("role_functions", (string)null);
+                });
+
             modelBuilder.Entity("QuanLySinhVien.Models.Semester", b =>
                 {
                     b.Property<int>("SemesterID")
@@ -378,34 +406,27 @@ namespace quanlysv.Migrations
                     b.ToTable("teachers", (string)null);
                 });
 
-            modelBuilder.Entity("RoleFunction", b =>
+            modelBuilder.Entity("QuanLySinhVien.Models.RoleFunction", b =>
                 {
-                    b.Property<int>("RoleID")
-                        .HasColumnType("int");
-
-                    b.Property<string>("FunctionCode")
-                        .HasColumnType("varchar(50)");
-
-                    b.HasKey("RoleID", "FunctionCode");
-
-                    b.HasIndex("FunctionCode");
-
-                    b.ToTable("role_functions", (string)null);
-                });
-
-            modelBuilder.Entity("RoleFunction", b =>
-                {
-                    b.HasOne("QuanLySinhVien.Models.Function", "Function")
+                    b.HasOne("QuanLySinhVien.Models.Function", null)
                         .WithMany()
                         .HasForeignKey("FunctionCode")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("QuanLySinhVien.Models.Role", "Role")
+                    b.HasOne("QuanLySinhVien.Models.Function", "Function")
+                        .WithMany()
+                        .HasForeignKey("FunctionCode1");
+
+                    b.HasOne("QuanLySinhVien.Models.Role", null)
                         .WithMany()
                         .HasForeignKey("RoleID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("QuanLySinhVien.Models.Role", "Role")
+                        .WithMany()
+                        .HasForeignKey("RoleID1");
 
                     b.Navigation("Function");
 

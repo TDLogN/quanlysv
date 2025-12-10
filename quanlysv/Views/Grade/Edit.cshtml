@@ -9,15 +9,15 @@
         <h3 class="mb-0">📝 @ViewData["Title"]</h3>
     </div>
     <div class="card-body">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
 
-            <input type="hidden" asp-for="GradeID" />
+        <form asp-action="Edit" method="post">
+            <div asp-validation-summary=" ModelOnly" class="text-bg-danger mb-3"></div>
+            <input type="hidden" asp-action="GradeID" />
+            <partial name="_GradeFormFields" model=" Model" />
 
-            <partial name="_GradeFormFields" model="Model" />
-
-            
-        </form>
+            <button type="submit" class="btn btn-warning mt-3">Cập nhật</button>
+            <a asp-action="Index" class="btn btn-secondary mt-3">Quay lại</a>
+            </form>
     </div>
 </div>
 

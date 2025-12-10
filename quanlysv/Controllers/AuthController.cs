@@ -1,12 +1,14 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authentication; 
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using QuanLySinhVien.Data;
 using QuanLySinhVien.Models;
-using System.Security.Cryptography;
-using Microsoft.AspNetCore.Authentication; 
-using Microsoft.AspNetCore.Authentication.Cookies;
+using RestSharp;
 using System.Security.Claims;
+using System.Security.Cryptography;
 using System.Text;
+using System.Text.Json;
 
 namespace quanlysv.Controllers
 {
@@ -69,11 +71,7 @@ namespace quanlysv.Controllers
         [HttpGet]
         public IActionResult AccessDenied()
         {
-            // Bạn có thể đặt logic kiểm tra xem người dùng đã đăng nhập chưa ở đây
-            // Nếu họ đã đăng nhập (nhưng không đủ quyền), hiển thị View AccessDenied
-            // Nếu chưa đăng nhập, bạn có thể chuyển hướng họ về Login
 
-            // Ví dụ đơn giản: Chỉ trả về View AccessDenied
             return View();
         }
 
@@ -85,7 +83,7 @@ namespace quanlysv.Controllers
             HttpContext.Session.Clear();
             return RedirectToAction("Login");
         }
-
+        
         [HttpGet]
         public IActionResult Create()
         {
@@ -102,7 +100,7 @@ namespace quanlysv.Controllers
 
             // Kiểm tra tên đăng nhập đã tồn tại
             var existingUser = await _context.Accounts
-                                            .FirstOrDefaultAsync(a => a.Username == model.Username);
+             .FirstOrDefaultAsync(a => a.Username == model.Username);
 
             if (existingUser != null)
             {
