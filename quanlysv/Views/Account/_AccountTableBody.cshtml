@@ -7,6 +7,7 @@
         <tr>
             @* <td>@Html.DisplayFor(modelItem => item.AccountID)</td> *@
             <td>@Html.DisplayFor(modelItem => item.Username)</td>
+            <td>@Html.DisplayFor(modelItem => item.Role)</td>
             <td>
                 @* <a asp-action="Edit" asp-route-id="@item.AccountID" class="btn btn-sm btn-warning me-1">Sửa</a> *@
                 <a asp-action="Delete" asp-route-id="@item.AccountID" class="btn btn-sm btn-danger">Xóa</a>

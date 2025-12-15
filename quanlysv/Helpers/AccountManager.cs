@@ -34,7 +34,7 @@ namespace QuanLySinhVien.Helpers
                 return new UserInfo
                 {
                     UserName = username,
-                    Role = "Giảng viên",
+                    Role = "Teacher",
                     GA_Confirmed = true,
                     List_User_Functions = new List<string>
                     {
