@@ -23,7 +23,7 @@ namespace QuanLySinhVien.Models
         public double AverageScore { get; set; }
 
         [MaxLength(255)]
-        [Display(Name = "Lớp Thư")]
+        [Display(Name = "Đánh giá")]
         public string GradeLetter { get; set; }
     }
 }

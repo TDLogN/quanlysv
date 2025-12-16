@@ -24,6 +24,14 @@ namespace QuanLySinhVien.API.Controllers.API
                 .ToListAsync();
             return Ok(grades);
         }
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetGradeById(int id)
+        {
+            var grade = await _context.Grades.FindAsync(id);
+            if (grade == null)
+                return NotFound();
+            return Ok(grade);
+        }
         // post api/grade them diem moi
         [HttpPost("Create")]
         public async Task<IActionResult> AddGrade([FromBody] Grade grade)
